@@ -101,14 +101,19 @@ CREATE TABLE SALAM.alumni (
     id SERIAL PRIMARY KEY,
     nim VARCHAR(10) UNIQUE,
     nama VARCHAR(100) NOT NULL,
-    tahun_lulus INT
+    tahun_lulus DATE
 );
+
+-- Menguji INSERT oleh data_engineer (harus berhasil)
+INSERT INTO SALAM.alumni (nim, nama, tahun_lulus)
+VALUES ('1111111111', 'Ali', '2002-01-10');
+
 -- Menguji menambah kolom baru oleh data_engineer (harus berhasil)
-ALTER TABLE SALAM.mahasiswas
+ALTER TABLE SALAM.alumni
 ADD COLUMN alamat VARCHAR(255);
 
 -- Menguji mengubah tipe data kolom oleh data_engineer (harus berhasil)
-ALTER TABLE SALAM.mahasiswas
+ALTER TABLE SALAM.alumni
 ALTER COLUMN nama TYPE TEXT;
 
 -- Menguji menghapus kolom oleh data_engineer (harus berhasil)
