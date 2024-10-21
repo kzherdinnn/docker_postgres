@@ -1,0 +1,38 @@
+services:
+  postgres:
+    container_name: postgres_Herdin_Kristianjani_Zebua
+    image: postgres:14
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "22053:5432"
+    networks:
+      - postgres-network
+    restart: unless-stopped
+  
+  pgadmin:
+    container_name: pgadmin_Herdin_Kristianjani_Zebua
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    ports:
+      - "44053:80"
+    networks:
+      - postgres-network
+    restart: unless-stopped
+
+networks:
+  postgres-network:
+    driver: bridge
+
+volumes:
+  postgres:
+  pgadmin_data:
